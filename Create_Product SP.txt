@@ -1,0 +1,14 @@
+CREATE PROCEDURE Create_Product
+    @Name NVARCHAR(100),
+    @Description NVARCHAR(500),
+    @Price DECIMAL(18, 2),
+    @Stock INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO Products (Name, Description, Price, Stock, Created_At)
+    VALUES (@Name, @Description, @Price, @Stock, GetDate());
+
+    SELECT SCOPE_IDENTITY() AS ProductId;  
+END

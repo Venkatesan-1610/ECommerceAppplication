@@ -1,0 +1,37 @@
+CREATE TABLE Users (
+    id INT PRIMARY KEY IDENTITY,
+    username NVARCHAR(100) UNIQUE,
+    email NVARCHAR(255) UNIQUE,
+    password NVARCHAR(255),
+    created_at DATETIME
+);
+
+
+CREATE TABLE Products (
+    id INT PRIMARY KEY IDENTITY,
+    name NVARCHAR(255),
+    description TEXT,
+    price DECIMAL(18, 2),
+    stock INT,
+    created_at DATETIME
+);
+
+
+CREATE TABLE Orders (
+    id INT PRIMARY KEY IDENTITY,
+    user_id INT,
+    total_price DECIMAL(18, 2),
+    status NVARCHAR(100),
+    created_at DATETIME,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+);
+
+CREATE TABLE OrderItems (
+    id INT PRIMARY KEY IDENTITY,
+    order_id INT,
+    product_id INT,
+    quantity INT,
+    price DECIMAL(18, 2),
+    FOREIGN KEY (order_id) REFERENCES Orders(id),
+    FOREIGN KEY (product_id) REFERENCES Products(id)
+);
